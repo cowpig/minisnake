@@ -1,5 +1,5 @@
 <html>
-<head> 
+<head>
 	<script src="snake.js"> </script>
 </head>
 <body>
@@ -7,6 +7,7 @@
 	<script>
 		window.onload = () => {
 			const game = new SnakeGame(document.getElementById("snake").getContext('2d'));
+			window.game = game;
 			window.onkeydown = game.keypress.bind(game);
 			setInterval(() => {game.step(); game.draw()}, 100);
 		}

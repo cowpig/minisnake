@@ -17,7 +17,7 @@ class SnakeGame {
 	new_game() {
 		this.dims = [25, 25];
 		this.gamesize = 400;
-		this.snake = [{x: 5, y:5}];
+		this.snake = [{x: 5, y: 5}];
 		this.new_apple();
 		this.direction = null;
 		this.next_direction = null;
@@ -25,7 +25,7 @@ class SnakeGame {
 	}
 	collides_with(snake, square) {
 		return snake.reduce(
-			(dead, segment) => collides(segment, new_segment), 
+			(dead, segment) => collides(segment, new_segment),
 		false)
 	}
 	new_apple() {
@@ -50,15 +50,18 @@ class SnakeGame {
 			x: mod(head.x + this.direction.x, dx),
 			y: mod(head.y + this.direction.y, dy),
 		};
-		
-		if (this.is_dead(new_segment)) this.new_game();
 
-		if (collides(new_segment, this.apple)){
-			this.new_apple();
-		} else if (this.snake.length > 5) {
-			this.snake.shift();
+		if (this.is_dead(new_segment)) {
+			this.new_game()
+		} else {
+			if (collides(new_segment, this.apple)){
+				this.new_apple();
+			} else if (this.snake.length > 5) {
+				this.snake.shift();
+			}
+			this.snake.push(new_segment);
 		}
-		this.snake.push(new_segment);
+
 		this.draw()
 	}
 	draw() {
@@ -96,4 +99,3 @@ class SnakeGame {
 		}[event.keyCode] || this.next_direction;
 	}
 }
-
